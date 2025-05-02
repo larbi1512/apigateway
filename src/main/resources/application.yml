@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth
+          uri: http://localhost:8081
+          predicates:
+            - Path=/auth/**,/users/**,
+        - id: documents
+          uri: http://localhost:8082
+          predicates:
+            - Path=/documents/**,/categories/**,/departments/**
+          filters:
+            - StripPrefix=1
+  application:
+    name: gateway-api
+server:
+  port: 8080
